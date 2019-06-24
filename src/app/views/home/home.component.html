@@ -1,0 +1,13 @@
+<app-loading *ngIf="loading"></app-loading>
+
+
+<div class="container">
+  
+  <div *ngIf="error" class="mt-5 alert alert-danger text-center" role="alert">
+      {{ messageError }}
+  </div>
+  
+  <div class="card-columns animated fadeIn mt-5">
+    <app-item-card [item]="item" *ngFor="let item of items"></app-item-card>
+  </div>
+</div>
