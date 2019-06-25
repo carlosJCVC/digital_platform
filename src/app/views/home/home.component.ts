@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from 'src/app/services/spotify.service';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,12 @@ export class HomeComponent implements OnInit {
   loading: boolean;
   error: boolean;
   messageError: String;
-  constructor(private spotiServ: SpotifyService) { }
+  constructor(private spotiServ: SpotifyService, private fileService: UploadService ) { }
 
   ngOnInit() {
     this.loading = true;
     this.error = false;
-    this.spotiServ.getNewReleases()
+    /*this.spotiServ.getNewReleases()
       .subscribe( (data: any) => {
         this.items = data;
         this.loading = false;
@@ -25,7 +26,11 @@ export class HomeComponent implements OnInit {
         this.messageError = error.error.message;
         this.error = true;
         this.loading = false;
-      });
+      });*/
+    this.fileService.getVideos().subscribe( (res) => {
+      this.items = res['data'];
+      this.loading = false;
+    });
   }
 
 }

@@ -1,0 +1,77 @@
+<div class="container mt-4">
+    <h4>Upload <small>video</small></h4> 
+    
+    <form (ngSubmit)="saveData( dataForm )" #dataForm="ngForm" novalidate="">
+      
+      <div  class="form-group">
+        <label>Name</label>
+        <input class="form-control" 
+                [ngClass]="{ 
+                  'is-invalid': (name.errors?.required || name.errors?.minlength || name.errors?.maxlength) && name.touched ,
+                  'is-valid': (!name.errors?.required && !name.errors?.pattern)
+                }" 
+                minlength="5"
+                maxlength="30" 
+                [(ngModel)]="item.name" 
+                name="name" type="text" 
+                placeholder="Name" 
+                #name="ngModel" required>
+        
+        <div class="invalid-feedback" *ngIf="name.errors?.required">
+            Este campo es requerido.
+        </div>
+
+        <div class="invalid-feedback" *ngIf="name.errors?.minlength" >
+            Este campo requiere al menos 5 caracteres.
+        </div>
+
+        <div class="invalid-feedback" *ngIf="name.errors?.maxlength" >
+          maximo 30 caracteres permitido.
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-4">
+          <label>Select file</label>
+          <div appNgDropFiles [files]="files" (aboutMouse)="isAboutElement = $event" [ngClass]="{ 'file-over': isAboutElement }" class="well drop-zone">
+            <h4>Files here</h4>
+            <img src="assets/images/drop-images.png">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <label>List</label>
+          <a (click)="cleanFiles()" class="btn btn-outline-danger float-right">Clear</a>
+  
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Tamaño</th>
+                <th>Progreso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of files">
+                <td [ngClass]="{ 'text-green': file.progress >= 100 }">{{ file.nameFile }}</td>
+                <td>2</td>
+                <!--
+                  <td>{{ file.file.size / 1024 /1024 || number: '.2-2' }} MB</td>
+                  -->
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': file.progres  + '%' }"></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="col text-center">
+        <button type="submit" class="btn btn-outline-primary" [disabled]="!dataForm.valid">
+          Upload
+        </button>
+      </div>
+    </form>
+</div>

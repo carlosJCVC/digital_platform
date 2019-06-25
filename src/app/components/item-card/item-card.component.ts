@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 export class ItemCardComponent implements OnInit {
 
   @Input() item;
+  @ViewChild('videoPlayer') videoplayer: ElementRef;
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log(this.item);
+    //console.log("mi video" ,this.item.path);
   }
 
   viewArtist( item: any ) {
@@ -24,7 +25,11 @@ export class ItemCardComponent implements OnInit {
       artistId = item.artists[0].id;
     }
 
-    console.log(artistId);
+  }
+
+  toggleVideo(event: any) {
+    console.log(this.videoplayer)
+    this.videoplayer.nativeElement.play();
   }
 
 }

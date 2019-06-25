@@ -1,12 +1,15 @@
 <div (click)="viewArtist( item )" class="card pointer">
-    <img class="card-img-top" [src]="item.images | noimage" alt="">
-    <audio [src]="item.url" controls></audio>
-    <div class="card-body">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="card-text">
-        <span *ngFor="let artist of item.artists" class="badge badge-pill badge-primary">
-          {{ artist.name }}
-        </span>
-      </p>
-    </div>
+    <!--<img class="card-img-top" [src]="item.images | noimage" alt="">
+     <audio [src]="item.url" controls></audio> -->
+    <video (click)="toggleVideo()" #videoPlayer controls>
+      <source [src]="item.path" type="video/mp4">
+    </video>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <p class="card-text">
+      <span *ngFor="let artist of item.artists" class="badge badge-pill badge-primary">
+        {{ artist.name }}
+      </span>
+    </p>
   </div>
+</div>
